@@ -1,89 +1,109 @@
 #include <stdio.h>
 // Desafio Xadrez
 // Tema 3 - Movimentação de Peças de Xadrez
-// Nível aventureiro.
+// Nível mestre.
+// Função recursiva para mover a Torre
+void moverTorre(int casasRestantes, int linhaTorre, int colunaTorre) {
+    // Caso base: Se o número de casas a serem movidas for 0, não faz mais movimento
+    if (casasRestantes == 0) {
+        return;
+    }
+
+    // Move a Torre uma casa para a direita e imprime a direção
+    colunaTorre++;
+    printf("Direita\n");
+
+    // Chama recursivamente para o próximo movimento da Torre
+    moverTorre(casasRestantes - 1, linhaTorre, colunaTorre);
+}
+
+// Função recursiva para mover o Bispo com loops aninhados
+void moverBispo(int casasRestantes, int linhaBispo, int colunaBispo) {
+    // Caso base: Se o número de casas a serem movidas for 0, não faz mais movimento
+    if (casasRestantes == 0) {
+        return;
+    }
+
+    // Move o Bispo uma casa para cima (diminuir linha) e uma casa para a direita (aumentar coluna)
+    linhaBispo--;  // Movimento para cima
+    colunaBispo++; // Movimento para a direita
+
+    // Imprime a direção "Cima" e "Direita"
+    printf("Cima\n");
+    printf("Direita\n");
+
+    // Chama a função recursivamente para o próximo movimento do Bispo
+    moverBispo(casasRestantes - 1, linhaBispo, colunaBispo);
+}
+
+// Função recursiva para mover a Rainha
+void moverRainha(int casasRestantes, int linhaRainha, int colunaRainha) {
+    // Caso base: Se o número de casas a serem movidas for 0, não faz mais movimento
+    if (casasRestantes == 0) {
+        return;
+    }
+
+    // Move a Rainha uma casa para a esquerda
+    colunaRainha--;
+    printf("Esquerda\n");
+
+    // Chama recursivamente para o próximo movimento da Rainha
+    moverRainha(casasRestantes - 1, linhaRainha, colunaRainha);
+}
+
+// Função recursiva para mover o Cavalo
+void moverCavalo(int casasRestantes, int linhaCavalo, int colunaCavalo) {
+    // Caso base: Se o número de casas a serem movidas for 0, não faz mais movimento
+    if (casasRestantes == 0) {
+        return;
+    }
+
+    // O Cavalo se move 2 casas para cima
+    for (int i = 0; i < 2; i++) {
+        linhaCavalo--;
+        printf("Cima\n");
+    }
+
+    // O Cavalo se move 1 casa para a direita
+    colunaCavalo++;
+    printf("Direita\n");
+
+    // Chama recursivamente para o próximo movimento do Cavalo
+    moverCavalo(casasRestantes - 1, linhaCavalo, colunaCavalo);
+}
+
 int main() {
-    // Definindo o número de casas que cada peça vai mover
-    int casasTorre = 5;    // Número de casas que a Torre vai mover para a direita
-    int casasBispo = 5;    // Número de casas que o Bispo vai mover na diagonal para cima e à direita
-    int casasRainha = 8;   // Número de casas que a Rainha vai mover para a esquerda
-    int casasCavaloVertical = 2;   // Número de casas que o Cavalo vai mover para baixo (vertical)
-    int casasCavaloHorizontal = 1; // Número de casas que o Cavalo vai mover para a esquerda (horizontal)
+    // Definindo as quantidades de casas a serem movidas
+    int casasTorre = 5;   // A Torre se moverá 5 casas para a direita
+    int casasBispo = 5;   // O Bispo se moverá 5 casas na diagonal (para cima e à direita)
+    int casasRainha = 8;  // A Rainha se moverá 8 casas para a esquerda
+    int casasCavalo = 1;  // O Cavalo fará 1 movimento em "L" (2 casas para cima, 1 para a direita)
 
-    // Movimentos da Torre usando for
+    // Posições iniciais das peças
+    int linhaTorre = 1, colunaTorre = 1;     // Posição inicial da Torre
+    int linhaBispo = 8, colunaBispo = 3;     // Posição inicial do Bispo
+    int linhaRainha = 1, colunaRainha = 8;   // Posição inicial da Rainha
+    int linhaCavalo = 8, colunaCavalo = 1;   // Posição inicial do Cavalo
+
+    // Movimentos da Torre
     printf("Movimento da Torre: %d casas para a direita\n", casasTorre);
-    
-    // Definindo a posição inicial da Torre (linha 1, coluna 1)
-    int linhaTorre = 1;
-    int colunaTorre = 1;
+    moverTorre(casasTorre, linhaTorre, colunaTorre);
+    printf("\n");  // Linha em branco para separar os movimentos
 
-    // Movendo a Torre para a direita
-    for (int i = 0; i < casasTorre; i++) {
-        colunaTorre++;  // Aumenta a coluna para mover para a direita
-        printf("Direita\n"); // Imprime "Direita" a cada movimento
-    }
+    // Movimentos do Bispo
+    printf("Movimento do Bispo: %d casas na diagonal para cima e à direita\n", casasBispo);
+    moverBispo(casasBispo, linhaBispo, colunaBispo);
+    printf("\n");  // Linha em branco para separar os movimentos
 
-    // Movimento do Bispo usando while
-    printf("\nMovimento do Bispo: %d casas na diagonal para cima e à direita\n", casasBispo);
-    
-    // Definindo a posição inicial do Bispo (linha 1, coluna 3)
-    int linhaBispo = 1;
-    int colunaBispo = 3;
+    // Movimentos da Rainha
+    printf("Movimento da Rainha: %d casas para a esquerda\n", casasRainha);
+    moverRainha(casasRainha, linhaRainha, colunaRainha);
+    printf("\n");  // Linha em branco para separar os movimentos
 
-    // Contador para os movimentos do Bispo
-    int iBispo = 0;
+    // Movimentos do Cavalo
+    printf("Movimento do Cavalo (2 casas para cima e 1 casa para a direita):\n");
+    moverCavalo(casasCavalo, linhaCavalo, colunaCavalo);  // Chama a função para mover o Cavalo
+    printf("\n");  // Linha em branco para separar os movimentos
 
-    // Movendo o Bispo para cima e à direita
-    while (iBispo < casasBispo) {
-        linhaBispo--;  // Move para cima (diminuindo a linha)
-        colunaBispo++; // Move para a direita (aumentando a coluna)
-        
-        printf("Cima Direita\n");  // Imprime "Cima Direita" a cada movimento do Bispo
-        iBispo++;  // Incrementa o contador de movimentos
-    }
-
-    // Movimento da Rainha usando do-while
-    printf("\nMovimento da Rainha: %d casas para a esquerda\n", casasRainha);
-    
-    // Definindo a posição inicial da Rainha (linha 1, coluna 8)
-    int linhaRainha = 1;
-    int colunaRainha = 8;
-
-    // Contador para os movimentos da Rainha
-    int iRainha = 0;
-
-    // Movendo a Rainha para a esquerda
-    do {
-        colunaRainha--;  // Move para a esquerda (diminuindo a coluna)
-        printf("Esquerda\n"); // Imprime "Esquerda" a cada movimento da Rainha
-        iRainha++;  // Incrementa o contador de movimentos
-    } while (iRainha < casasRainha); // Continua enquanto a Rainha não mover 8 casas
-
-    // Separando o movimento do Cavalo com uma linha em branco
-    printf("\n");
-
-    // Movimento do Cavalo usando for
-    printf("Movimento do Cavalo: %d casas para baixo e %d casa para a esquerda\n", casasCavaloVertical, casasCavaloHorizontal);
-    
-    // Definindo a posição inicial do Cavalo (linha 1, coluna 8)
-    int linhaCavalo = 1;
-    int colunaCavalo = 8;
-
-    // O Cavalo se move em "L" (2 para baixo e 1 para a esquerda)
-    for (int i = 0; i < 1; i++) {  // O Cavalo faz 1 movimento "L"
-        
-        // Movendo o Cavalo 2 casas para baixo (vertical)
-        int j = 0;
-        while (j < casasCavaloVertical) {
-            linhaCavalo++;  // Move para baixo (incrementando a linha)
-            printf("Baixo\n");  // Imprime "Baixo" para cada movimento vertical
-            j++;  // Incrementa o contador de movimento vertical
-        }
-
-        // Movendo o Cavalo 1 casa para a esquerda (horizontal)
-        colunaCavalo--;  // Move para a esquerda (diminuindo a coluna)
-        printf("Esquerda\n");  // Imprime "Esquerda" para o movimento horizontal
-    }
-
-    return 0; // Retorna 0, indicando que o programa terminou corretamente
+    return 0;  // Retorna 0 indicando que o programa terminou corretamente
 }
